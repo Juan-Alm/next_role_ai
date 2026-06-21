@@ -76,7 +76,8 @@ next_role_ai/
 ├── batch_search.py      # Scripted batch pipeline entry point
 ├── requirements.txt
 ├── assets/
-│   └── agent_flow.svg
+│   ├── agent_flow.svg
+│   └── agent_architecture.svg
 ├── app/
 │   ├── criteria.py      # Your job search criteria
 │   ├── scraper.py       # Playwright SEEK scraper + description extraction
@@ -96,6 +97,12 @@ next_role_ai/
 4. For qualifying jobs, the scraper fetches a requirements snippet from the job description
 5. Each new (previously unseen) job is scored against the candidate's criteria using a structured prompt
 6. The agent presents the results, prioritising strong matches and remaining honest about weak ones
+
+## Architecture
+
+![Module architecture](assets/agent_architecture.svg)
+
+Two entry points (`main.py` for conversation, `batch_search.py` for a single scripted run) both call into the same `app/` package, so the chat agent and the batch pipeline always produce identical scores for the same job — `agent.py` calls `matcher.py`'s scoring function directly rather than re-judging results itself. `scraper.py` is the only module that talks to SEEK; `ollama_client.py` is the only module that talks to Ollama. `memory.py` and `criteria.py` are shared state and configuration, used by whichever entry point is running.
 
 ## Roadmap
 
