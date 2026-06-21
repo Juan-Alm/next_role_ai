@@ -104,10 +104,3 @@ next_role_ai/
 
 Two entry points (`main.py` for conversation, `batch_search.py` for a single scripted run) both call into the same `app/` package, so the chat agent and the batch pipeline always produce identical scores for the same job — `agent.py` calls `matcher.py`'s scoring function directly rather than re-judging results itself. `scraper.py` is the only module that talks to SEEK; `ollama_client.py` is the only module that talks to Ollama. `memory.py` and `criteria.py` are shared state and configuration, used by whichever entry point is running.
 
-## Roadmap
-
-- [x] Phase A — Scrape + structured scoring pipeline
-- [x] Phase B — Tool use (agent controls the scraper)
-- [x] Phase C — Memory / deduplication (SQLite)
-- [x] Phase D — Conversational chat loop
-- [ ] Phase E — Daily reports + notifications
