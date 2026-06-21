@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+.vscode/
+output/
+data/
+*.db
+seek_results.png
+inspect_job_page.py
+job_page_screenshot.png
+jobs.json
+output_log.txt
